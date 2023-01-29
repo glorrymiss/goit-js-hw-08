@@ -23,4 +23,4 @@ player.on('timeupdate', trottle(onPlay, 1000));
 
 // // ====================================== step 3 - має вітворити відео з часу яке записалось в локальну пам'ять
 
-player.setCurrentTime(localStorage.getItem('videoplayer-current-time'));
+player.setCurrentTime(localStorage.getItem('videoplayer-current-time') || 0);
