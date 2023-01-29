@@ -1,28 +1,35 @@
 const trottle = require('lodash.throttle');
 
 const form = document.querySelector('.feedback-form');
+const input = document.querySelector('input');
+const message = document.querySelector('textarea');
 console.log(form);
-let data = {};
 
-form.addEventListener('input', hendleTakeData);
+let data = {};
+const KEY = 'feedback-form-state';
+
+form.addEventListener('input', trottle(hendleTakeData, 500));
+form.addEventListener('submit', hendleSaveData);
+
+loadingPage();
 
 function hendleTakeData(event) {
-  const {
-    elements: { email, message },
-  } = event.currentTarget;
-  data = { email: email.value, message: message.value };
-
+  loadingPage();
+  data[event.target.name] = event.target.value;
   const dataValue = JSON.stringify(data);
-  localStorage.setItem('feedback-form-state', dataValue);
-
-  //   при перезавантаженні сторінки
+  localStorage.setItem(KEY, dataValue);
 }
-
-form.addEventListener('submit', hendleSaveData);
+//   при перезавантаженні сторінки
+function loadingPage() {
+  if (data) {
+    input = JSON.parse(localStorage.getItem(KEY) || '');
+    message = JSON.parse(localStorage.getItem(KEY) || '');
+  }
+}
 
 function hendleSaveData(event) {
   event.preventDefault();
   event.currentTarget.reset();
-  console.log(localStorage.getItem('feedback-form-state'));
-  localStorage.removeItem('feedback-form-state');
+  console.log(localStorage.getItem(KEY));
+  localStorage.removeItem(KEY);
 }
