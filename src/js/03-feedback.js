@@ -13,8 +13,11 @@ form.addEventListener('submit', hendleSaveData);
 
 function hendleTakeData(event) {
   input.value = JSON.parse(localStorage.getItem(KEY)).email || '';
-  message.value = JSON.parse(localStorage.getItem(KEY)).messagen || '';
-  data[event.target.name] = event.target.value;
+  message.value = JSON.parse(localStorage.getItem(KEY)).message || '';
+  data = {
+    email: form.elements.email.value,
+    message: form.elements.message.value,
+  };
   const dataValue = JSON.stringify(data);
   localStorage.setItem(KEY, dataValue);
 }
