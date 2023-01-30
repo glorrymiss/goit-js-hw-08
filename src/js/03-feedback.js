@@ -16,7 +16,6 @@ input.value = returnData.email || '';
 //  введення та зберігання в local memory
 function hendleTakeData({ target }) {
   data[target.name] = target.value;
-  console.log(data);
   const dataValue = JSON.stringify(data);
   localStorage.setItem(KEY, dataValue);
 }
