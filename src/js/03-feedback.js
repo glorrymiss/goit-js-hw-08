@@ -3,27 +3,20 @@ const trottle = require('lodash.throttle');
 const form = document.querySelector('.feedback-form');
 const input = document.querySelector('input');
 const textarea = document.querySelector('textarea');
-
 let data = {};
-
 const KEY = 'feedback-form-state';
 
 form.addEventListener('input', trottle(hendleTakeData, 500));
 form.addEventListener('submit', hendleSaveData);
 
 //   при перезавантаженні сторінки
-input.value = JSON.parse(localStorage.getItem(KEY)).email || '';
-textarea.value = JSON.parse(localStorage.getItem(KEY)).message || '';
+const returnData = JSON.parse(localStorage.getItem(KEY));
+textarea.value = returnData.message || '';
+input.value = returnData.email || '';
 //  введення та зберігання в local memory
-function hendleTakeData(event) {
-  const {
-    elements: { email, message },
-  } = event.currentTarget;
-  data = {
-    email: email.value,
-    message: message.value,
-  };
-
+function hendleTakeData({ target }) {
+  data[target.name] = target.value;
+  console.log(data);
   const dataValue = JSON.stringify(data);
   localStorage.setItem(KEY, dataValue);
 }
