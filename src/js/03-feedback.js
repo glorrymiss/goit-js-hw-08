@@ -10,9 +10,10 @@ const KEY = 'feedback-form-state';
 
 form.addEventListener('input', trottle(hendleTakeData, 500));
 form.addEventListener('submit', hendleSaveData);
-input.value = JSON.parse(localStorage.getItem(KEY)).email || '';
-message.value = JSON.parse(localStorage.getItem(KEY)).message || '';
+
 function hendleTakeData(event) {
+  input.value = JSON.parse(localStorage.getItem(KEY)).email || '';
+  message.value = JSON.parse(localStorage.getItem(KEY)).messagen || '';
   data[event.target.name] = event.target.value;
   const dataValue = JSON.stringify(data);
   localStorage.setItem(KEY, dataValue);
