@@ -10,18 +10,18 @@ const KEY = 'feedback-form-state';
 
 form.addEventListener('input', trottle(hendleTakeData, 500));
 form.addEventListener('submit', hendleSaveData);
-
+loadingPage();
 function hendleTakeData(event) {
   data[event.target.name] = event.target.value;
   const dataValue = JSON.stringify(data);
   localStorage.setItem(KEY, dataValue);
-  loadingPage();
+  loadingPage(event);
 }
 //   при перезавантаженні сторінки
 function loadingPage() {
   if (localStorage.getItem(KEY)) {
-    input === JSON.parse(localStorage.getItem(KEY) || '');
-    message === JSON.parse(localStorage.getItem(KEY) || '');
+    input.value === JSON.parse(localStorage.getItem(KEY) || '');
+    message.value === JSON.parse(localStorage.getItem(KEY) || '');
   }
 }
 
