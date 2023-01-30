@@ -10,20 +10,14 @@ const KEY = 'feedback-form-state';
 
 form.addEventListener('input', trottle(hendleTakeData, 500));
 form.addEventListener('submit', hendleSaveData);
-loadingPage();
+input.value = JSON.parse(localStorage.getItem(KEY).email) || '';
+message.value = JSON.parse(localStorage.getItem(KEY).message) || '';
 function hendleTakeData(event) {
   data[event.target.name] = event.target.value;
   const dataValue = JSON.stringify(data);
   localStorage.setItem(KEY, dataValue);
-  loadingPage(event);
 }
 //   при перезавантаженні сторінки
-function loadingPage() {
-  if (localStorage.getItem(KEY)) {
-    input.value === JSON.parse(localStorage.getItem(KEY) || '');
-    message.value === JSON.parse(localStorage.getItem(KEY) || '');
-  }
-}
 
 function hendleSaveData(event) {
   event.preventDefault();
