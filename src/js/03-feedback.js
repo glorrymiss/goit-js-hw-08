@@ -5,7 +5,7 @@ const input = document.querySelector('input');
 const message = document.querySelector('textarea');
 console.log(form);
 
-let data = {};
+// let data = {};
 const KEY = 'feedback-form-state';
 
 form.addEventListener('input', trottle(hendleTakeData, 500));
@@ -14,7 +14,7 @@ form.addEventListener('submit', hendleSaveData);
 function hendleTakeData(event) {
   input.value = JSON.parse(localStorage.getItem(KEY)).email || '';
   message.value = JSON.parse(localStorage.getItem(KEY)).message || '';
-  data = {
+  const data = {
     email: form.elements.email.value,
     message: form.elements.message.value,
   };
