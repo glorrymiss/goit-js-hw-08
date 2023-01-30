@@ -10,8 +10,8 @@ const KEY = 'feedback-form-state';
 
 form.addEventListener('input', trottle(hendleTakeData, 500));
 form.addEventListener('submit', hendleSaveData);
-input.value = JSON.parse(localStorage.getItem(KEY).email) || '';
-message.value = JSON.parse(localStorage.getItem(KEY).message) || '';
+input.value = JSON.parse(localStorage.getItem(KEY)).email || '';
+message.value = JSON.parse(localStorage.getItem(KEY)).message || '';
 function hendleTakeData(event) {
   data[event.target.name] = event.target.value;
   const dataValue = JSON.stringify(data);
