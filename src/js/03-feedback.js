@@ -5,9 +5,9 @@ const form = document.querySelector('.feedback-form');
 const input = document.querySelector('input');
 const textarea = document.querySelector('textarea');
 
-// let data = {};
 const KEY = 'feedback-form-state';
 const data = {};
+
 form.addEventListener('input', trottle(hendleCreateData, 500));
 form.addEventListener('submit', hendleSaveData);
 
@@ -34,11 +34,24 @@ function hendleSaveData(event) {
 }
 //  заповнення полів форми при завантаженні сторінки
 function hendleTakeDataFromLS() {
-  const savedData = JSON.parse(localStorage.getItem(KEY));
-  console.log(savedData);
-  if (!savedData) {
+  const date = JSON.parse(localStorage.getItem(KEY)) || '';
+  console.log(date);
+  // console.log(savedData);
+  if (!date) {
     return;
+  } else {
+    for (const key in date) {
+      const element = date[key];
+      console.log(key);
+      console.log(element);
+      if (key === 'email') {
+        input.value = date[key];
+      }
+      if (key === 'message') {
+        textarea.value = date[key];
+      }
+    }
+    // input.value = date.email || '';
+    // textarea.value = date.message || '';
   }
-  input.value = savedData.email || '';
-  textarea.value = savedData.message || '';
 }
