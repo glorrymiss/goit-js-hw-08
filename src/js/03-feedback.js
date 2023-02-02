@@ -6,19 +6,18 @@ const input = document.querySelector('input');
 const textarea = document.querySelector('textarea');
 
 const KEY = 'feedback-form-state';
-const data = {};
+let data = {};
 
 form.addEventListener('input', trottle(hendleCreateData, 500));
 form.addEventListener('submit', hendleSaveData);
 
 hendleTakeDataFromLS();
 
-function hendleCreateData({ target }) {
+function hendleCreateData(event) {
   // console.log(target.name);
   // console.log(target.value);
-  data[target.name] = target.value;
+  data[event.target.name] = event.target.value;
 
-  console.log(data);
   localStorage.setItem(KEY, JSON.stringify(data));
 }
 // щоб всі рядки були заповнені при submit
@@ -34,24 +33,13 @@ function hendleSaveData(event) {
 }
 //  заповнення полів форми при завантаженні сторінки
 function hendleTakeDataFromLS() {
-  const date = JSON.parse(localStorage.getItem(KEY)) || '';
-  console.log(date);
-  // console.log(savedData);
-  if (!date) {
+  const dataFromLS = JSON.parse(localStorage.getItem(KEY)) || '';
+
+  if (!dataFromLS) {
     return;
   } else {
-    for (const key in date) {
-      const element = date[key];
-      console.log(key);
-      console.log(element);
-      if (key === 'email') {
-        input.value = date[key];
-      }
-      if (key === 'message') {
-        textarea.value = date[key];
-      }
-    }
-    // input.value = date.email || '';
-    // textarea.value = date.message || '';
+    data = dataFromLS;
+    input.value = data.email || '';
+    textarea.value = data.message || '';
   }
 }
