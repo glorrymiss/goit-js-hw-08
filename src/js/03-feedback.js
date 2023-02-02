@@ -14,12 +14,14 @@ form.addEventListener('submit', hendleSaveData);
 hendleTakeDataFromLS();
 
 function hendleCreateData(event) {
-  // console.log(target.name);
-  // console.log(target.value);
+  //  прописала щоб після submit при веденні нових даних і перезавантаженні не додавалась архівна інформація
+  data = JSON.parse(localStorage.getItem(KEY)) || {};
+
   data[event.target.name] = event.target.value;
 
   localStorage.setItem(KEY, JSON.stringify(data));
 }
+
 // щоб всі рядки були заповнені при submit
 function hendleSaveData(event) {
   event.preventDefault();
@@ -31,9 +33,10 @@ function hendleSaveData(event) {
     localStorage.removeItem(KEY);
   }
 }
+
 //  заповнення полів форми при завантаженні сторінки
 function hendleTakeDataFromLS() {
-  const dataFromLS = JSON.parse(localStorage.getItem(KEY)) || '';
+  const dataFromLS = JSON.parse(localStorage.getItem(KEY));
 
   if (!dataFromLS) {
     return;
